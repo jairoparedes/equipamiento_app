@@ -12,6 +12,5 @@
   
   <style>
   /* Estilos del componente */
-  
   </style>
   

@@ -19,21 +19,30 @@ import AppLayout from '@/Layouts/AppLayout.vue'
                         <thead>
                             <tr>
                                 <th class="px-4 py-2">ID</th>
-                                <th class="px-4 py-2">ID_Equipo</th>
-                                <th class="px-4 py-2">N_Serie</th>
-                                <th class="px-4 py-2">ID_Usuario</th>
-                                <th class="px-4 py-2">Nombre Usuario</th>
-                                <th class="px-4 py-2">Fecha de Asignación</th>
+                                <th class="px-4 py-2">Marca Modelo</th>
+                                <th class="px-4 py-2">Nro. Serie</th>
+                                <th class="px-4 py-2">Nro. Inventario</th>
+                                <th class="px-4 py-2">Responsable</th>
+                                <th class="px-4 py-2">Fecha Asignación</th>
+                                <th class="px-4 py-2">División</th>
+                                <th class="px-4 py-2">Acciones</th>
+                                
                             </tr>
                         </thead>
+                        
                         <tbody>
                             <tr v-for="equipoUser in equipoUsers" :key="equipoUser.id">
                                 <td class="border px-4 py-2">{{ equipoUser.id }}</td>
-                                <td class="border px-4 py-2">{{ equipoUser.equipo_id }}</td>
-                                <td class="border px-4 py-2">{{ equipoUser.equipo.n_serie }}</td>
-                                <td class="border px-4 py-2">{{ equipoUser.user_id }}</td>
-                                <td class="border px-4 py-2">{{ equipoUser.user.name }}</td>
+                                <td class="border px-4 py-2">{{ equipoUser.nombre_marca + '/' + equipoUser.nombre_modelo }}</td>
+                                <td class="border px-4 py-2">{{ equipoUser.n_serie }}</td>
+                                <td class="border px-4 py-2">{{ equipoUser.n_inventario }}</td>
+                                <td class="border px-4 py-2">{{ equipoUser.name }}</td>
                                 <td class="border px-4 py-2">{{ equipoUser.fecha_asignacion }}</td>
+                                <td class="border px-4 py-2">{{ equipoUser.departamento + '/' + equipoUser.subdepartamento + '/' + equipoUser.unidad }}</td>
+                                <td class="border px-4 py-2">
+                                    <a href="#" class="text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Editar</a>
+                                    <a href="#" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">Eliminar</a>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

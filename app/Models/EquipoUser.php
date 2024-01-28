@@ -11,7 +11,7 @@ class EquipoUser extends Model
     use HasFactory;
     protected $table = 'equipo_user';
 
-    protected $fillable = ['equipo_id', 'user_id', 'fecha_asignacion'];
+    protected $fillable = ['equipo_id', 'user_id', 'ubicacion_id', 'fecha_asignacion'];
 
     public function equipo()
     {

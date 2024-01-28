@@ -1,46 +1,66 @@
 <?php
 
-// app/Http/Controllers/EquipoUserController.php
-
 namespace App\Http\Controllers;
 
-use App\Models\Equipo;
 use App\Models\EquipoUser;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
+
 class EquipoUserController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
-        //unir equipoUser con equipo y user
-        $equipoUsers = EquipoUser::with(['equipo', 'user'])->get();
-        
+        $equipoUsers = EquipoUser::join('equipos', 'equipo_user.equipo_id', '=', 'equipos.id')
+            ->join('users', 'equipo_user.user_id', '=', 'users.id')
+            ->join('division_user', 'users.id', '=', 'division_user.user_id')
+            ->join('departamentos', 'division_user.departamento_id', '=', 'departamentos.id')
+            ->join('subdepartamentos', 'departamentos.id', '=', 'subdepartamentos.departamento_id')
+            ->join('unidades', 'subdepartamentos.id', '=', 'unidades.subdepartamento_id')
+            ->join('ubicaciones', 'equipo_user.ubicacion_id', '=', 'ubicaciones.id')
+            ->join('marcas_modelos', 'equipos.marcas_modelos_id', '=', 'marcas_modelos.id')
+            ->select('equipo_user.*', 'equipos.n_serie', 'equipos.n_inventario', 'users.name', 'ubicaciones.direccion', 'ubicaciones.piso',
+             'ubicaciones.oficina', 'departamentos.nombre as departamento', 'subdepartamentos.nombre as subdepartamento', 'unidades.nombre as unidad',
+              'marcas_modelos.nombre_marca', 'marcas_modelos.nombre_modelo')
+            ->get();
         return Inertia::render('EquipoUser/Index', [
             'equipoUsers' => $equipoUsers
         ]);
+
     }
 
-    public function create()
-    {
-        $equipos = Equipo::all();
-        $users = User::all();
-        return view('equipo_user.create', compact('equipos', 'users'));
-    }
-
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'equipo_id' => 'required|exists:equipos,id',
-            'user_id' => 'required|exists:users,id',
-            'fecha_asignacion' => 'required|date',
-        ]);
-
-        EquipoUser::create($validatedData);
-        return redirect()->route('dashboard');
+        //
     }
 
-    // Aquí puedes agregar métodos para mostrar, editar o eliminar asignaciones
+    /**
+     * Display the specified resource.
+     */
+    public function show(EquipoUser $equipoUser)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, EquipoUser $equipoUser)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(EquipoUser $equipoUser)
+    {
+        //
+    }
 }

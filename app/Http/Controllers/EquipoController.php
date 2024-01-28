@@ -1,7 +1,5 @@
 <?php
 
-// app/Http/Controllers/EquipoController.php
-
 namespace App\Http\Controllers;
 
 use App\Models\Equipo;
@@ -9,10 +7,11 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 
-
 class EquipoController extends Controller
 {
-
+    /**
+     * Display a listing of the resource.
+     */
     public function index()
     {
         $equipos = Equipo::all();

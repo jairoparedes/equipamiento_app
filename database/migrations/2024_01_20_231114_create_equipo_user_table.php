@@ -13,8 +13,11 @@ class CreateEquipoUserTable extends Migration
             $table->id();
             $table->foreignId('equipo_id')->constrained('equipos');
             $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('ubicacion_id')->constrained('ubicaciones');
             $table->date('fecha_asignacion');
             $table->timestamps(); // Opcional, para registro de creación/edición
+            $table->foreignId('created_or_updated_by')->nullable()->constrained('users')->onDelete('set null');
+
         });
     }
 
